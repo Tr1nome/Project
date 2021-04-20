@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<style>
+
+.square {
+  height: 32px;
+  width: 32px;
+  background: #efefef;
+}
+
+.square.white {
+  background: #fff;
+}
+
+.square.white:hover {
+  background: #eee;
+}
+
+.square.black {
+  background: #333;
+}
+
+</style>
+
+<div id = "grid" class="px-4 py-5 my-5 text-center">
+  
+</div>
+{% endblock %}
+{% block javascripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script>
+
+$(document).ready(function(){
+  var table = document.createElement("table");
+for (var i = 1; i < 9; i++) {
+    var tr = document.createElement('tr');
+    for (var j = 1; j < 9; j++) {
+        var td = document.createElement('td');
+        if (i%2 == j%2) {
+            td.className = "square white";
+        } else {
+            td.className = "square black";
+        }
+        tr.appendChild(td);
+    }
+    table.appendChild(tr);
+}
+$("#grid").append(table);
+})
+
+
+console.log("test");
+
+</script>
+{% endblock %}
