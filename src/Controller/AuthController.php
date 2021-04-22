@@ -47,11 +47,27 @@ class AuthController extends AbstractController
      *     name="auth_profile_api"
      * )
      */
-    public function profile()
+    public function profile(): Response
     {
         $user = $this->getUser();
+        //$user = $this->normalize($user);
         return $this->json($user);
         
+    }
+
+    private function normalize($object)
+    {
+        /* Serializer, normalizer exemple */
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $object = $serializer->normalize($object, null,
+            ['attributes' => [
+                'id',
+                'username',
+                'password',
+                'role'=>[],
+                'articles'=>['id','title','content'],
+            ]]);
+        return $object;
     }
 
 }

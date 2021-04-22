@@ -17,7 +17,7 @@ security:
             security: false
         
         api:
-            pattern: ^/api/login
+            #pattern: ^/api/login
             stateless: true
             anonymous: true
             json_login:
@@ -28,6 +28,16 @@ security:
             guard:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
+        
+        login:
+            #host: api\.fenrir-studio\.fr
+            pattern: ^/login
+            stateless: true
+            anonymous: true
+            json_login:
+                check_path: /login_check
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
 
         main:
             anonymous: true
@@ -51,4 +61,6 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/api/articles, roles: ROLE_USER }
+        - { path: ^/api/article/new, roles: ROLE_USER }
